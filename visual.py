@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 # Load your trained model
-model = tf.keras.models.load_model('model/rafter_detection_model.keras')
+model = tf.keras.models.load_model('model/pmt_detection_model.keras')
 
 def visualize_predictions(image_path, model):
     # Load the image
@@ -49,13 +49,11 @@ def visualize_predictions(image_path, model):
     if x_min < x_max and y_min < y_max:
         color = (0, 255, 0) if class_pred > 0.5 else (0, 0, 255)  # Green for positive, red for negative
         cv2.rectangle(original_image, (x_min, y_min), (x_max, y_max), color, 2)
+        cv2.imshow('Predicted Image', original_image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     else:
         print("Invalid bounding box coordinates, skipping drawing.")
 
-    # Display the image
-    cv2.imshow('Predicted Image', original_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
 # Example usage
-visualize_predictions('dataset/images/test/20.jpeg', model)
+visualize_predictions('dataset/images/test/21.jpeg', model)
